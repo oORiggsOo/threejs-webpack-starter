@@ -5,7 +5,7 @@ import * as dat from 'dat.gui'
 
 //texture loader
 const loader = new THREE.TextureLoader()
-const height = loader.load('height.png')
+const height = loader.load('/height.png')
 const texture = loader.load('/mountainTexture.jpg')
 const alpha = loader.load('/alpha.png')
 
@@ -19,12 +19,16 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Objects
-const geometry = new THREE.PlaneBufferGeometry(3, 3, 64, 64)
+const geometry = new THREE.PlaneBufferGeometry(4, 4, 256, 256)
 
 // Materials
 const material = new THREE.MeshStandardMaterial({
     color: 'grey',
-    map: texture
+    map: texture,
+    displacementMap: height,
+    displacementScale: .8,
+    alphaMap: alpha,
+    transparent: true
 })
 
 const plane = new THREE.Mesh(geometry, material)
@@ -38,7 +42,7 @@ gui.add(plane.rotation, 'x').min(0).max(400)
 
 // Lights
 
-const pointLight = new THREE.PointLight(0xffffff, 3)
+const pointLight = new THREE.PointLight('#0087ff', 3)
 pointLight.position.x = 2
 pointLight.position.y = 3
 pointLight.position.z = 4
@@ -111,9 +115,9 @@ const tick = () => {
 
     // Update objects
     //sphere.rotation.y = .5 * elapsedTime
-
-    // Update Orbital Controls
-    // controls.update()
+    plane.rotation.z = .1 * elapsedTime
+        // Update Orbital Controls
+        //controls.update()
 
     // Render
     renderer.render(scene, camera)
