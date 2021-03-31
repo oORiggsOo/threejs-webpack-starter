@@ -42,7 +42,7 @@ gui.add(plane.rotation, 'x').min(0).max(400)
 
 // Lights
 
-const pointLight = new THREE.PointLight('#0087ff', 3)
+const pointLight = new THREE.PointLight('#0087ff', 5)
 pointLight.position.x = .2
 pointLight.position.y = 10
 pointLight.position.z = 4
