@@ -1,6 +1,6 @@
 import './style.css'
 import * as THREE from 'three'
-//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 
 //texture loader
@@ -19,14 +19,14 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Objects
-const geometry = new THREE.PlaneBufferGeometry(4, 4, 256, 256)
+const geometry = new THREE.PlaneBufferGeometry(3, 3, 64, 64)
 
 // Materials
 const material = new THREE.MeshStandardMaterial({
     color: 'grey',
     map: texture,
     displacementMap: height,
-    displacementScale: .8,
+    displacementScale: 1,
     alphaMap: alpha,
     transparent: true
 })
@@ -43,8 +43,8 @@ gui.add(plane.rotation, 'x').min(0).max(400)
 // Lights
 
 const pointLight = new THREE.PointLight('#0087ff', 3)
-pointLight.position.x = 2
-pointLight.position.y = 3
+pointLight.position.x = .2
+pointLight.position.y = 10
 pointLight.position.z = 4
 scene.add(pointLight)
 
@@ -87,12 +87,12 @@ window.addEventListener('resize', () => {
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 0
 camera.position.y = 0
-camera.position.z = 4
+camera.position.z = 3
 scene.add(camera)
 
 // Controls
-// const controls = new OrbitControls(camera, canvas)
-// controls.enableDamping = true
+const controls = new OrbitControls(camera, canvas)
+controls.enableDamping = true
 
 /**
  * Renderer
