@@ -7,7 +7,8 @@ html,
 body {
     height: 100vh;
     font-family: 'Poppins';
-    background: #00ffee;
+    /* background-color: #4158D0;
+    background-image: linear-gradient(43deg, #4158D0 10%, #C850C0 46%, #FFCC70 100%); */
 }
 
 .webgl {
@@ -15,4 +16,17 @@ body {
     top: 0;
     left: 0;
     outline: none;
+    z-index: -1;
 }
+
+.container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: black;
+    margin: 15;
+}
+
+
+/* background-color: #4158D0;
+background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%); */

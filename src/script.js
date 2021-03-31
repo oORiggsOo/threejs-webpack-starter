@@ -19,7 +19,7 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Objects
-const geometry = new THREE.PlaneBufferGeometry(3, 3, 64, 64)
+const geometry = new THREE.PlaneBufferGeometry(5, 5, 128, 128)
 
 // Materials
 const material = new THREE.MeshStandardMaterial({
@@ -28,34 +28,36 @@ const material = new THREE.MeshStandardMaterial({
     displacementMap: height,
     displacementScale: 1,
     alphaMap: alpha,
-    transparent: true
+    transparent: true,
+    depthTest: false
 })
 
 const plane = new THREE.Mesh(geometry, material)
 scene.add(plane)
-plane.rotation.x = 181
+plane.rotation.x = 169
 
-gui.add(plane.rotation, 'x').min(0).max(400)
+
+//gui.add(plane.rotation, 'x').min(0).max(400)
 
 // Mesh
 
 
 // Lights
 
-const pointLight = new THREE.PointLight('#0087ff', 5)
+const pointLight = new THREE.PointLight('#14CDEC', 3, 100)
 pointLight.position.x = .2
 pointLight.position.y = 10
 pointLight.position.z = 4
 scene.add(pointLight)
 
-gui.add(pointLight.position, 'x')
-gui.add(pointLight.position, 'y')
-gui.add(pointLight.position, 'z')
+// gui.add(pointLight.position, 'x')
+// gui.add(pointLight.position, 'y')
+// gui.add(pointLight.position, 'z')
 
-const col = { color: '#00ff00' }
-gui.addColor(col, 'color').onChange(() => {
-    pointLight.color.set(col.color)
-})
+// const col = { color: '#00ff00' }
+// gui.addColor(col, 'color').onChange(() => {
+//     pointLight.color.set(col.color)
+// })
 
 
 /**
@@ -98,7 +100,8 @@ controls.enableDamping = true
  * Renderer
  */
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+    canvas: canvas,
+    alpha: true
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -106,6 +109,14 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 /**
  * Animate
  */
+
+document.addEventListener('mousemove', animateTera)
+
+let mouseY = 0
+
+function animateTera(event) {
+    mouseY = event.clientY
+}
 
 const clock = new THREE.Clock()
 
@@ -116,8 +127,10 @@ const tick = () => {
     // Update objects
     //sphere.rotation.y = .5 * elapsedTime
     plane.rotation.z = .1 * elapsedTime
-        // Update Orbital Controls
-        //controls.update()
+    plane.material.displacementScale = -0 + mouseY * 0.0050
+
+    // Update Orbital Controls
+    //controls.update()
 
     // Render
     renderer.render(scene, camera)
