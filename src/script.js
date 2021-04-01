@@ -19,14 +19,14 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Objects
-const geometry = new THREE.PlaneBufferGeometry(5, 5, 128, 128)
+const geometry = new THREE.PlaneBufferGeometry(5, 5, 256, 256)
 
 // Materials
 const material = new THREE.MeshStandardMaterial({
-    color: 'grey',
+    color: 'darkgrey',
     map: texture,
     displacementMap: height,
-    displacementScale: 1,
+    displacementScale: .2,
     alphaMap: alpha,
     transparent: true,
     depthTest: false
@@ -34,7 +34,7 @@ const material = new THREE.MeshStandardMaterial({
 
 const plane = new THREE.Mesh(geometry, material)
 scene.add(plane)
-plane.rotation.x = 169
+plane.rotation.x = 181
 
 
 //gui.add(plane.rotation, 'x').min(0).max(400)
@@ -44,13 +44,13 @@ plane.rotation.x = 169
 
 // Lights
 
-const pointLight = new THREE.PointLight('#14CDEC', 3, 100)
+const pointLight = new THREE.PointLight('#C850C0', 3, 100)
 pointLight.position.x = .2
 pointLight.position.y = 10
 pointLight.position.z = 4
 scene.add(pointLight)
 
-// gui.add(pointLight.position, 'x')
+// gui.add(pointLight.position, 'x')'#004aff
 // gui.add(pointLight.position, 'y')
 // gui.add(pointLight.position, 'z')
 
@@ -89,7 +89,7 @@ window.addEventListener('resize', () => {
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 0
 camera.position.y = 0
-camera.position.z = 3
+camera.position.z = 4
 scene.add(camera)
 
 // Controls
@@ -127,7 +127,7 @@ const tick = () => {
     // Update objects
     //sphere.rotation.y = .5 * elapsedTime
     plane.rotation.z = .1 * elapsedTime
-    plane.material.displacementScale = -0 + mouseY * 0.0050
+    plane.material.displacementScale = -0 + mouseY * 0.0010
 
     // Update Orbital Controls
     //controls.update()
